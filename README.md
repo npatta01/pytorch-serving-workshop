@@ -6,7 +6,6 @@
 
 
 **Colab** starter notebook: &nbsp;&nbsp; [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/npatta01/pytorch-serving-workshop/blob/notebooks/colab_starter.ipynb)
-https://github.com/npatta01/pytorch-serving-workshop/blob/notebooks/README.md
 
 
 ## References
