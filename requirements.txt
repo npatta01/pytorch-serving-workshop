@@ -5,3 +5,5 @@ torchserve==0.4.2
 torchvision==0.10.0
 datasets==1.12.1
 transformers==4.11.1
+torchviz==0.0.2
+scikit-learn==1.0

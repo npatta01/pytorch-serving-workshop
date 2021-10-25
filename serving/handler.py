@@ -4,23 +4,14 @@ import os
 import time
 from abc import ABC
 from collections.abc import Iterable
+import transformers
+import ast
+import torch
 
 import numpy as np
 from ts.metrics.dimension import Dimension
 
 logger = logging.getLogger(__name__)
-
-
-import transformers
-
-   
-from abc import ABC
-import json
-import logging
-import os
-import ast
-import torch
-import transformers
 
 from ts.torch_handler.base_handler import BaseHandler
 from captum.attr import LayerIntegratedGradients
@@ -35,7 +26,7 @@ logger.info("Transformers version %s",transformers.__version__)
 
 class CustomHandler(BaseHandler, ABC):
     """
-    Transformers handler class for sequence, token classification and question answering.
+    Transformers handler class for sequence classification.
     """
 
     def __init__(self):
@@ -43,13 +34,8 @@ class CustomHandler(BaseHandler, ABC):
         self.initialized = False
 
     def initialize(self, ctx):
-        """In this initialize function, the BERT model is loaded and
-        the Layer Integrated Gradients Algorithmfor Captum Explanations
-        is initialized here.
-        Args:
-            ctx (context): It is a JSON Object containing information
-            pertaining to the model artefacts parameters.
-        """
+
+        
         self.manifest = ctx.manifest
         properties = ctx.system_properties
         model_dir = properties.get("model_dir")
@@ -61,6 +47,7 @@ class CustomHandler(BaseHandler, ABC):
             if torch.cuda.is_available() and properties.get("gpu_id") is not None
             else "cpu"
         )
+        
         # read configs for the mode, model_name, etc. from setup_config.json
         setup_config_path = os.path.join(model_dir, "setup_config.json")
         if os.path.isfile(setup_config_path):
@@ -143,25 +130,19 @@ class CustomHandler(BaseHandler, ABC):
                 else:
                     input_ids_batch = torch.cat((input_ids_batch, input_ids), 0)
                     attention_mask_batch = torch.cat((attention_mask_batch, attention_mask), 0)
+        
+        input_ids_batch = input_ids_batch.to(self.device)
+        attention_mask_batch = attention_mask_batch.to(self.device)
+        
         return (input_ids_batch, attention_mask_batch)
 
     def inference(self, input_batch):
-        """Predict the class (or classes) of the received text using the
-        serialized transformers checkpoint.
-        Args:
-            input_batch (list): List of Text Tensors from the pre-process function is passed here
-        Returns:
-            list : It returns a list of the predicted value for the input text
-        """
+
+        
         input_ids_batch, attention_mask_batch = input_batch
         inferences = []
         
-        # Handling inference for sequence_classification.
         predictions = self.model(input_ids_batch, attention_mask_batch)
-        print("This the output size from the Seq classification model", predictions[0].size())
-        print("This the output from the Seq classification model", predictions)
-
-        
         
 #         ps = torch.nn.functional.softmax(predictions.logits, dim=1)
 #         probs, classes = torch.topk(ps, self.top_k, dim=1)
@@ -179,52 +160,24 @@ class CustomHandler(BaseHandler, ABC):
         
             friendly_labels = map_class_to_label(probs, self.mapping, classes)
             inferences.append(friendly_labels)
-            
-            
-            
-            
-            
-            
-            
-            #out = predictions[0][i].unsqueeze(0)
-            #y_hat = out.argmax(1).item()
-            #predicted_idx = str(y_hat)
-            #inferences.append(self.mapping[predicted_idx])
+
 
         return inferences
 
     def postprocess(self, inference_output):
-        """Post Process Function converts the predicted response into Torchserve readable format.
-        Args:
-            inference_output (list): It contains the predicted response of the input text.
-        Returns:
-            (list): Returns a list of the Predictions and Explanations.
-        """
+
         return inference_output
-
-
-    
+   
     
     def handle(self, data, context):
-        """Entry point for default handler. It takes the data from the input request and returns
-           the predicted outcome for the input.
-        Args:
-            data (list): The input data that needs to be made a prediction request on.
-            context (Context): It is a JSON Object containing information pertaining to
-                               the model artefacts parameters.
-        Returns:
-            list : Returns a list of dictionary with the predicted response.
-        """
 
         # It can be used for pre or post processing if needed as additional request
         # information is available in context
-        
         
         start_time = time.time()
         
         self.context = context
         metrics = self.context.metrics
-        
         
         data_preprocess = self.preprocess(data)
         data_inference = self.inference(data_preprocess)
@@ -234,7 +187,5 @@ class CustomHandler(BaseHandler, ABC):
         
         stop_time = time.time()
         metrics.add_time('HandlerTime', round((stop_time - start_time) * 1000, 2), None, 'ms')
-
-        
         
         return data_postprocess
