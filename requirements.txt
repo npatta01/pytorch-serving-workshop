@@ -1,0 +1,9 @@
+torch==1.9.0
+torch-model-archiver==0.4.2
+torchmetrics==0.4.1
+torchserve==0.4.2
+torchvision==0.10.0
+datasets==1.12.1
+transformers==4.11.1
+torchviz==0.0.2
+scikit-learn==1.0
