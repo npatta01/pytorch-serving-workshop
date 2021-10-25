@@ -9,7 +9,7 @@ This repo contains notebooks for Pytorch Serving Workshop.
 
 To get started, run the below notebook that will setup everything in collab. 
 
-**Colab** starter notebook: &nbsp;&nbsp; [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/npatta01/pytorch-serving-workshop/blob/notebooks/colab_starter.ipynb)
+**Colab** starter notebook: &nbsp;&nbsp; [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/npatta01/pytorch-serving-workshop/blob/main/colab_starter.ipynb)
 
 
 ## Contents
