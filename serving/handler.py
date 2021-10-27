@@ -14,7 +14,6 @@ from ts.metrics.dimension import Dimension
 logger = logging.getLogger(__name__)
 
 from ts.torch_handler.base_handler import BaseHandler
-from captum.attr import LayerIntegratedGradients
 
 from ts.utils.util import map_class_to_label
 
