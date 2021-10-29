@@ -9,3 +9,4 @@ __pycache__
 *.zip
 notebooks/trainer_*/ 
 notebooks/wandb/
+.venv
