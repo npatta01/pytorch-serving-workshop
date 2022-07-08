@@ -46,34 +46,6 @@ I am using `hub` for my domain `np.training`
 
 
 
-## Step 2b: Cert (optional)
-
-By default the Helm chart we will use supports LetsEncrypt. However, I had trouble getting it to work.
-So, I used followed the steps bellow to get create my own cert
-
-create certificate signing request for "*.np.training"
-
-```bash 
-openssl req -nodes -newkey rsa:2048 \
--keyout cert/server.key \
--out cert/server.csr \
--subj "/C=US/ST=New York/L=New York/O=NP Training./OU=IT/CN=*.np.training"
-```
-
-I bought a wildcard cert from Namecheap
-
-
-Download my cert and create a kubectl cert
-```bash
-gsutil cp "gs://np-training-private/certs/_star.np.training/*"  
-cd cert
-
-kubectl create secret tls $HELM_NAMESPACE-tls --key="tls.key" --cert="tls.crt" --namespace $HELM_NAMESPACE
-cd ..
-```
-
-
-
 
 ## Step 3: Create cluster
 
@@ -122,6 +94,35 @@ gcloud beta container node-pools create user-pool \
   --project $GCP_PROJECT
 ```
 
+
+## Step 3b: Cert (optional)
+
+By default the Helm chart we will use supports LetsEncrypt. However, I had trouble getting it to work.
+So, I used followed the steps bellow to get create my own cert
+
+create certificate signing request for "*.np.training"
+
+```bash 
+openssl req -nodes -newkey rsa:2048 \
+-keyout cert/server.key \
+-out cert/server.csr \
+-subj "/C=US/ST=New York/L=New York/O=NP Training./OU=IT/CN=*.np.training"
+```
+
+I bought a wildcard cert from Namecheap
+
+
+Download my cert and create a kubectl cert
+```bash
+gsutil cp "gs://np-training-private/certs/_star.np.training/*"  
+cd workshop_infra/cert
+
+kubectl create namespace $HELM_NAMESPACE
+
+kubectl create secret tls $HELM_NAMESPACE-tls --key="tls.key" --cert="tls.crt" --namespace $HELM_NAMESPACE
+cd ../../
+```
+
 ## Step 4: Helm setup
 
 ```bash
@@ -147,25 +148,22 @@ docker push gcr.io/$GCP_PROJECT/pytorch-workshop:v1.0
 
 ```
 
-
 encrypt setup
-```
 
+```bash
 gcloud kms keyrings create sops --location global --project $GCP_PROJECT
 gcloud kms keys create sops-key --location global --keyring sops --purpose encryption --project $GCP_PROJECT
 gcloud kms keys list --location global --keyring sops --project $GCP_PROJECT
 ```
 
 
-```
-
+```bash
 sops --encrypt --gcp-kms projects/$GCP_PROJECT/locations/global/keyRings/sops/cryptoKeys/sops-key \
 --encrypted-regex '^(client_id|client_secret)$' \
 workshop_infra/config.yaml > workshop_infra/config.enc.yaml
 ```
 
-
-```
+```bash
 sops --decrypt workshop_infra/config.enc.yaml > workshop_infra/config.yaml
 ```
 
@@ -182,21 +180,18 @@ replace values in [config.yaml](workshop_infra/config.yaml)
 
 ## Step 6: Helm Install
 
-
-```
+```bash
 helm upgrade --cleanup-on-fail \
   --install $HELM_NAMESPACE jupyterhub/jupyterhub \
   --namespace $HELM_NAMESPACE \
   --create-namespace \
   --version $HELM_CHART_VERSION \
-  --values config.yaml
+  --values workshop_infra/config.yaml
 
 ```
 
-```
+```bash
 kubectl --namespace=$HELM_NAMESPACE get pod
 
 kubectl --namespace=$HELM_NAMESPACE  get svc proxy-public -o jsonpath='{.status.loadBalancer.ingress[].ip}'
 ```
-
-

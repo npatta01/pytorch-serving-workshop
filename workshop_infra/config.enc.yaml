@@ -35,7 +35,17 @@ singleuser:
         # Inspect the Dockerfile at:
         # https://github.com/jupyter/docker-stacks/tree/HEAD/datascience-notebook/Dockerfile
         name: gcr.io/np-public-training/pytorch-workshop
-        tag: v1.1
+        tag: v1.0
+    extraEnv:
+        JUPYTERHUB_SINGLEUSER_APP: jupyter_server.serverapp.ServerApp
+    lifecycleHooks:
+        postStart: null
+        exec:
+            command:
+                - sh
+                - -c
+                - |
+                  cp -r /tmp/workshop /home/jovyan; pwd
 # proxy:
 #   https:
 #     enabled: true
@@ -57,7 +67,7 @@ proxy:
         secret:
             name: workshop-tls
     service:
-        loadBalancerIP: 34.145.156.81
+        loadBalancerIP: 35.188.254.55
 hub:
     config:
         GitHubOAuthenticator:
@@ -75,8 +85,8 @@ sops:
     azure_kv: []
     hc_vault: []
     age: []
-    lastmodified: "2022-07-07T16:40:04Z"
-    mac: ENC[AES256_GCM,data:F3klRqLRdTbYWahtOkHj5V+5hB/6/HU6Y5b2YbLBg/alFIITPx2x7IREdL4u5csqWex1x5zrDCc03e+/3OLXngNrzAn87y1q8KIhmSJL4xi75Wq1n+GzdmBB6nDPjLDP+pJNkTFJykXJ3EgDwl0sIHw1AFNxw19iSELfPbGVt24=,iv:ptEeuEF4hBm++8eEaxLR2K+pNYseothgWAEmnpdEprE=,tag:mSOzqmha276fKRMT4bBQCg==,type:str]
+    lastmodified: "2022-07-08T10:23:59Z"
+    mac: ENC[AES256_GCM,data:wbodj9hXvQ0rDuQNJpC9Y+E3U5CJhBtCLCzI73L7Mm7RCMoilomWdmFtp0kWJQOwlATjbC3p+pbS+UscRoXE4yW22DsOGbn6K0dt/n5cCoHDcaKcs3zcTwlu9Z/NbdhGUc/QCYCTrWJSBZelRx/NsllytbrqsHFf4L8cCqIJYMU=,iv:CDAggqEM2PNvgR8C5/APR6xEafg43UUjzGOpp3u52hw=,tag:Fc5rfEBzCSV9lz7GSeUiqg==,type:str]
     pgp: []
     encrypted_regex: ^(client_id|client_secret)$
     version: 3.7.3
