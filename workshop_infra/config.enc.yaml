@@ -39,13 +39,12 @@ singleuser:
     extraEnv:
         JUPYTERHUB_SINGLEUSER_APP: jupyter_server.serverapp.ServerApp
     lifecycleHooks:
-        postStart: null
-        exec:
-            command:
-                - sh
-                - -c
-                - |
-                  cp -r /tmp/workshop /home/jovyan; pwd
+        postStart:
+            exec:
+                command:
+                    - sh
+                    - -c
+                    - "cp -r /tmp/workshop /home/jovyan; \npwd\n"
 # proxy:
 #   https:
 #     enabled: true
@@ -85,8 +84,8 @@ sops:
     azure_kv: []
     hc_vault: []
     age: []
-    lastmodified: "2022-07-08T10:23:59Z"
-    mac: ENC[AES256_GCM,data:wbodj9hXvQ0rDuQNJpC9Y+E3U5CJhBtCLCzI73L7Mm7RCMoilomWdmFtp0kWJQOwlATjbC3p+pbS+UscRoXE4yW22DsOGbn6K0dt/n5cCoHDcaKcs3zcTwlu9Z/NbdhGUc/QCYCTrWJSBZelRx/NsllytbrqsHFf4L8cCqIJYMU=,iv:CDAggqEM2PNvgR8C5/APR6xEafg43UUjzGOpp3u52hw=,tag:Fc5rfEBzCSV9lz7GSeUiqg==,type:str]
+    lastmodified: "2022-07-08T11:04:32Z"
+    mac: ENC[AES256_GCM,data:02QYqHd1jtUJdcsFijXnjjy1ppv+E4MGYnU+xxTBsmCl3EKeKidd6KmVyXpviKPuImDVk6h47RHzNiVDDaFwooh0X9go73TiGbvMGQWrkcPIbNkhVN2l36noEJZWzKE2UufMFq+qUb7qeYzfWLMHxcXKxp+jK26nYAWYSnlK/Vk=,iv:03K35DJRQvWYvgJOXLGmvZCKaorvXhURgCw+SFoumgc=,tag:oJApKMbIeRFPI2UPWylmow==,type:str]
     pgp: []
     encrypted_regex: ^(client_id|client_secret)$
     version: 3.7.3

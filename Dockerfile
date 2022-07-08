@@ -5,10 +5,13 @@ FROM jupyter/scipy-notebook:python-3.8.8
 
 
 USER root
-# apt-utils is missing and needed to avoid warning about skipping debconf
-RUN apt-get update && apt-get --yes install apt-utils
-# install whatever else you want on this line
-RUN apt-get --yes install htop tmux -y
+
+
+RUN apt-get update && apt-get --yes install apt-utils && \
+    apt-get --yes install htop tmux graphviz openjdk-11-jre-headless && \
+    apt-get clean;
+
+
 # set the user back to original setting
 USER $NB_UID
 
