@@ -13,7 +13,7 @@ Most of the instructions are taken from [zero-to-jupyterhub](https://zero-to-jup
 ```bash
 REGION="us-east4"
 ZONE="$REGION-a"
-NODE_TYPE="n1-standard-2"
+NODE_TYPE_USER="n1-highmem-16"
 
 CLUSTER_NAME=workshop
 NODES_MIN=0
@@ -82,7 +82,7 @@ Create separate node pool for jupyter notebook
 
 ```bash
 gcloud beta container node-pools create user-pool \
-  --machine-type $NODE_TYPE \
+  --machine-type $NODE_TYPE_USER \
   --num-nodes 0 \
   --enable-autoscaling \
   --min-nodes $NODES_MIN \

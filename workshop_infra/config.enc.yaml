@@ -15,20 +15,13 @@ cull:
     enabled: true
     timeout: 3600
     every: 300
-# The resources requested is very important to consider in
-# relation to your machine type. If you have a n1-highmem-4 node
-# on Google Cloud for example you get 4 cores and 26 GB of
-# memory. With the configuration below you would  be able to have
-# at most about 50 users per node. This can be reasonable, but it
-# may not be, it will depend on your users. Are they mostly
-# writing and reading or are they mostly executing code?
 singleuser:
     cpu:
         limit: 4
-        guarantee: 0.05
+        guarantee: 2
     memory:
-        limit: 4G
-        guarantee: 512M
+        limit: 16G
+        guarantee: 8G
     image:
         # You should replace the "latest" tag with a fixed version from:
         # https://hub.docker.com/r/jupyter/datascience-notebook/tags/
@@ -84,8 +77,8 @@ sops:
     azure_kv: []
     hc_vault: []
     age: []
-    lastmodified: "2022-07-08T11:04:32Z"
-    mac: ENC[AES256_GCM,data:02QYqHd1jtUJdcsFijXnjjy1ppv+E4MGYnU+xxTBsmCl3EKeKidd6KmVyXpviKPuImDVk6h47RHzNiVDDaFwooh0X9go73TiGbvMGQWrkcPIbNkhVN2l36noEJZWzKE2UufMFq+qUb7qeYzfWLMHxcXKxp+jK26nYAWYSnlK/Vk=,iv:03K35DJRQvWYvgJOXLGmvZCKaorvXhURgCw+SFoumgc=,tag:oJApKMbIeRFPI2UPWylmow==,type:str]
+    lastmodified: "2022-07-08T19:52:02Z"
+    mac: ENC[AES256_GCM,data:enUxjHKOnPF705N67kqitDQMv8MSD9pdnvogU0MD5puO6/ELaMtHw8YNZ/TcpyGDG70r+NCXhtJsqBktEknMXpB0L3SouBuEIfzwlyZYsfaho+PILTg17ycOcFnjEwsDYlDNK99ZEj8aQmlB37+6/zXsoT+qYclRWT7XMhGip0s=,iv:OA36YUQ/dMHZn98jHMIJpj05/64E/mgdMsxptkS5ckc=,tag:2fhC0bVOeWP+xKhTyFp+4w==,type:str]
     pgp: []
     encrypted_regex: ^(client_id|client_secret)$
     version: 3.7.3
