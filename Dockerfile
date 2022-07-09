@@ -29,6 +29,6 @@ RUN pip install --no-cache-dir --requirement /tmp/requirements.txt && \
 
 COPY --chown=${NB_UID}:${NB_GID} setup.ipynb /tmp/
 
-RUN papermill /tmp/setup.ipynb /tmp/setup__out.ipynb -k python3 --log-output --log-level DEBUG --progress-bar && \
+RUN papermill /tmp/setup.ipynb /tmp/setup__out.ipynb -k python3 --log-output --log-level INFO --progress-bar && \
     fix-permissions "${CONDA_DIR}" && \
     fix-permissions "/home/${NB_USER}"
