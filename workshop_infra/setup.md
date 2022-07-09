@@ -54,11 +54,12 @@ I am using `hub` for my domain `np.training`
 
 gcloud container clusters create \
   --machine-type n1-standard-2 \
-  --num-nodes 2 \
-  --zone $ZONE \
+  --num-nodes 1 \
+  --region $REGION \
   --cluster-version latest \
   $CLUSTER_NAME \
   --project $GCP_PROJECT
+
 ```
 
 Get kubectl credentials
@@ -66,7 +67,7 @@ Get kubectl credentials
 ```bash
 gcloud container clusters get-credentials \
 $CLUSTER_NAME \
---zone $ZONE \
+--region $REGION \
 --project $GCP_PROJECT
 ```
 
@@ -89,7 +90,7 @@ gcloud beta container node-pools create user-pool \
   --max-nodes $NODES_MAX \
   --node-labels hub.jupyter.org/node-purpose=user \
   --node-taints hub.jupyter.org_dedicated=user:NoSchedule \
-  --zone $ZONE \
+  --region $REGION \
   --cluster $CLUSTER_NAME  \
   --project $GCP_PROJECT
 ```

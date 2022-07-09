@@ -29,6 +29,7 @@ singleuser:
         # https://github.com/jupyter/docker-stacks/tree/HEAD/datascience-notebook/Dockerfile
         name: gcr.io/np-public-training/pytorch-workshop
         tag: v1.0
+    defaultUrl: /lab
     extraEnv:
         JUPYTERHUB_SINGLEUSER_APP: jupyter_server.serverapp.ServerApp
     lifecycleHooks:
@@ -62,6 +63,11 @@ proxy:
         loadBalancerIP: 35.188.254.55
 hub:
     config:
+        Authenticator:
+            admin_users:
+                - npatta01
+                - vishalkumar95
+                - reshamas
         GitHubOAuthenticator:
             client_id: ENC[AES256_GCM,data:GVr1cL8lruvBCXqNtaqou1j4urI=,iv:Orx6eg2BTmHaVjsJvVPieIm9d/BCCLzwldYvDZ59ES8=,tag:5PUGb0rpiRprBIdXmALeeg==,type:str]
             client_secret: ENC[AES256_GCM,data:5iBlhLROkt8k8pOVi6OW2BQqivmpSjpWSLeR1NXBQjRFrsbk5tpdwA==,iv:dsfxzR2YRkiL+5EOJBl9a/jEC55LoWuCtMKDA31DYDM=,tag:KH7DT4r+erb1+CGzA2KjcQ==,type:str]
@@ -77,8 +83,8 @@ sops:
     azure_kv: []
     hc_vault: []
     age: []
-    lastmodified: "2022-07-08T19:52:02Z"
-    mac: ENC[AES256_GCM,data:enUxjHKOnPF705N67kqitDQMv8MSD9pdnvogU0MD5puO6/ELaMtHw8YNZ/TcpyGDG70r+NCXhtJsqBktEknMXpB0L3SouBuEIfzwlyZYsfaho+PILTg17ycOcFnjEwsDYlDNK99ZEj8aQmlB37+6/zXsoT+qYclRWT7XMhGip0s=,iv:OA36YUQ/dMHZn98jHMIJpj05/64E/mgdMsxptkS5ckc=,tag:2fhC0bVOeWP+xKhTyFp+4w==,type:str]
+    lastmodified: "2022-07-09T17:45:50Z"
+    mac: ENC[AES256_GCM,data:j8mG4yhggQCMn6iS9BNA+0947KJcu7h31MBypEp+XJqgudz3UmSwRlF8UpuUKBVanVosOnSwKak8H11oZcsZBwxFZbEtiNXd8DKZJRNWsOb/Kdkk37ImUlbj1MAuIXh3xLlwFrFsaht5eTAdcri3VcXL0sPZYLDjtOv+YztpTBM=,iv:I+CfXmqeRXpq/84cFMym35/Vi7rDjX8MQ7UKG/6zmaw=,tag:qIAvUsO9ypg/mDsiyk4ing==,type:str]
     pgp: []
     encrypted_regex: ^(client_id|client_secret)$
     version: 3.7.3

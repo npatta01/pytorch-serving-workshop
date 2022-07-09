@@ -8,7 +8,7 @@ USER root
 
 
 RUN apt-get update && apt-get --yes install apt-utils && \
-    apt-get --yes install htop tmux graphviz openjdk-11-jre-headless && \
+    apt-get --yes install htop tmux graphviz openjdk-11-jre-headless curl && \
     apt-get clean;
 
 
