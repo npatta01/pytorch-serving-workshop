@@ -52,7 +52,9 @@ Notebook that shows how to use TorchServe to serve models
 
 [![Watch the video](assets/slides_cover.png)](https://www.slideshare.net/nidhinpattaniyil/serving-bert-models-in-production-with-torchserve)
 
+## Video
 
+[![PyData Video](https://img.youtube.com/vi/sDGxzkOvxqY/0.jpg)](https://www.youtube.com/watch?v=sDGxzkOvxqY&ab_channel=PyData)
 
 
 ## References
@@ -72,4 +74,8 @@ For more reference, refer to this [paper](https://arxiv.org/abs/2110.06199)
 
 ## Contact
 
-For help or feedback, please reach out to [Nidhin Pattaniyil](https://www.linkedin.com/in/nidhinpattaniyil/) or [Adway Dhillon](https://www.linkedin.com/in/adwaydhillon/)
+For help or feedback, please reach out to :
+
+- [Nidhin Pattaniyil](https://www.linkedin.com/in/nidhinpattaniyil/)   
+- [Adway Dhillon](https://www.linkedin.com/in/adwaydhillon/)    
+- [Vishal Rathi](https://www.linkedin.com/in/vishalkumarrathi/)   

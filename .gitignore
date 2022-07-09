@@ -10,3 +10,7 @@ __pycache__
 notebooks/trainer_*/ 
 notebooks/wandb/
 .venv
+workshop_infra/cert/*
+workshop_infra/config.yaml
+
+!/**/.gitkeep

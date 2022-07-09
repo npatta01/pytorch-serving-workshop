@@ -1,0 +1,90 @@
+# https://zero-to-jupyterhub.readthedocs.io/en/latest/administrator/optimization.html#optimization
+scheduling:
+    userScheduler:
+        enabled: true
+    podPriority:
+        enabled: true
+    userPlaceholder:
+        enabled: true
+        # Specify five dummy user pods will be used as placeholders
+        replicas: 5
+    userPods:
+        nodeAffinity:
+            matchNodePurpose: require
+cull:
+    enabled: true
+    timeout: 3600
+    every: 300
+singleuser:
+    cpu:
+        limit: 4
+        guarantee: 2
+    memory:
+        limit: 16G
+        guarantee: 8G
+    image:
+        # You should replace the "latest" tag with a fixed version from:
+        # https://hub.docker.com/r/jupyter/datascience-notebook/tags/
+        # Inspect the Dockerfile at:
+        # https://github.com/jupyter/docker-stacks/tree/HEAD/datascience-notebook/Dockerfile
+        name: gcr.io/np-public-training/pytorch-workshop
+        tag: v1.0
+    defaultUrl: /lab
+    extraEnv:
+        JUPYTERHUB_SINGLEUSER_APP: jupyter_server.serverapp.ServerApp
+    lifecycleHooks:
+        postStart:
+            exec:
+                command:
+                    - sh
+                    - -c
+                    - "cp -r /tmp/workshop /home/jovyan; \npwd\n"
+# proxy:
+#   https:
+#     enabled: true
+#     hosts:
+#       - hub.np.training
+#     letsencrypt:
+#       contactEmail: npatta01@gmail.com
+#   service:
+#     loadBalancerIP: "34.145.156.81"
+# proxy:
+#   service:
+#     loadBalancerIP: "34.145.156.81"
+proxy:
+    https:
+        enabled: true
+        hosts:
+            - hub.np.training
+        type: secret
+        secret:
+            name: workshop-tls
+    service:
+        loadBalancerIP: 35.188.254.55
+hub:
+    config:
+        Authenticator:
+            admin_users:
+                - npatta01
+                - vishalkumar95
+                - reshamas
+        GitHubOAuthenticator:
+            client_id: ENC[AES256_GCM,data:GVr1cL8lruvBCXqNtaqou1j4urI=,iv:Orx6eg2BTmHaVjsJvVPieIm9d/BCCLzwldYvDZ59ES8=,tag:5PUGb0rpiRprBIdXmALeeg==,type:str]
+            client_secret: ENC[AES256_GCM,data:5iBlhLROkt8k8pOVi6OW2BQqivmpSjpWSLeR1NXBQjRFrsbk5tpdwA==,iv:dsfxzR2YRkiL+5EOJBl9a/jEC55LoWuCtMKDA31DYDM=,tag:KH7DT4r+erb1+CGzA2KjcQ==,type:str]
+            oauth_callback_url: https://hub.np.training/hub/oauth_callback
+        JupyterHub:
+            authenticator_class: github
+sops:
+    kms: []
+    gcp_kms:
+        - resource_id: projects/np-public-training/locations/global/keyRings/sops/cryptoKeys/sops-key
+          created_at: "2022-07-07T16:40:04Z"
+          enc: CiQAtA68IVue/mrOfkHLaTjHYkrW6GgqEFBge+pVF/bSJ7gFscASSQDOyIoWJtFT6Rz7JAKCXlZFTTGzrsUQ0c1lHMZlkxSukkT6NfogdDGVwzy+JRA6GQLkmaeWWEPYy+VY/wP0ZYzm3qpQ4/YxSE8=
+    azure_kv: []
+    hc_vault: []
+    age: []
+    lastmodified: "2022-07-09T17:45:50Z"
+    mac: ENC[AES256_GCM,data:j8mG4yhggQCMn6iS9BNA+0947KJcu7h31MBypEp+XJqgudz3UmSwRlF8UpuUKBVanVosOnSwKak8H11oZcsZBwxFZbEtiNXd8DKZJRNWsOb/Kdkk37ImUlbj1MAuIXh3xLlwFrFsaht5eTAdcri3VcXL0sPZYLDjtOv+YztpTBM=,iv:I+CfXmqeRXpq/84cFMym35/Vi7rDjX8MQ7UKG/6zmaw=,tag:qIAvUsO9ypg/mDsiyk4ing==,type:str]
+    pgp: []
+    encrypted_regex: ^(client_id|client_secret)$
+    version: 3.7.3
