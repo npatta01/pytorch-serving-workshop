@@ -196,3 +196,15 @@ kubectl --namespace=$HELM_NAMESPACE get pod
 
 kubectl --namespace=$HELM_NAMESPACE  get svc proxy-public -o jsonpath='{.status.loadBalancer.ingress[].ip}'
 ```
+
+
+
+## Step 7: Cleanup (Helm Delete)
+
+```bash
+
+helm delete $HELM_NAMESPACE --namespace $HELM_NAMESPACE 
+
+gcloud container clusters  delete $CLUSTER_NAME  --region $REGION   --project $GCP_PROJECT
+
+```
