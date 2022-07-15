@@ -179,8 +179,9 @@ replace values in [config.yaml](workshop_infra/config.yaml)
 
 
 
-## Step 6: Helm Install
+## Step 6: Helm Install with authentication
 
+setup with authentication and git oauth
 ```bash
 helm upgrade --cleanup-on-fail \
   --install $HELM_NAMESPACE jupyterhub/jupyterhub \
@@ -197,6 +198,24 @@ kubectl --namespace=$HELM_NAMESPACE get pod
 kubectl --namespace=$HELM_NAMESPACE  get svc proxy-public -o jsonpath='{.status.loadBalancer.ingress[].ip}'
 ```
 
+
+## Step 6b: Helm Install with no authentication ( not auth)
+
+```bash
+helm upgrade --cleanup-on-fail \
+  --install $HELM_NAMESPACE-public jupyterhub/jupyterhub \
+  --namespace $HELM_NAMESPACE-public \
+  --create-namespace \
+  --version $HELM_CHART_VERSION \
+  --values workshop_infra/config_public.yaml
+
+
+kubectl --namespace=$HELM_NAMESPACE-public get pod
+
+kubectl --namespace=$HELM_NAMESPACE-public  get svc proxy-public -o jsonpath='{.status.loadBalancer.ingress[].ip}'
+```
+
+add the external ip to dns
 
 
 ## Step 7: Cleanup (Helm Delete)
