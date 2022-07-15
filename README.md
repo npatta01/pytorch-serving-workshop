@@ -10,17 +10,13 @@ Note: We **do not** need a GPU runtime
 
 ## Setup 
 
-1) Run the below notebook that will setup everything in collab. 
+If you came to this repo, during a workshop visit this custom [jupyter hub](http://hub.np.training) with all the dependencies already set up.
 
-    **Colab** starter notebook: &nbsp;&nbsp; [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/npatta01/pytorch-serving-workshop/blob/main/colab_starter.ipynb)
 
-2) Navigate to the ngrok proxy url
-![](assets/setup_01.png)
 
-    We use ngrok to acces the underlying collab runtime
+Otherwise, consider using [![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/npatta01/pytorch-serving-workshop/main)
 
-3) Navigate to working directory in VSCode
-![](assets/setup_02.png)
+
 
 ## Contents
 
@@ -51,6 +47,7 @@ Notebook that shows how to use TorchServe to serve models
 ## Slides
 
 [![Watch the video](assets/slides_cover.png)](https://www.slideshare.net/nidhinpattaniyil/serving-bert-models-in-production-with-torchserve)
+
 
 ## Video
 
