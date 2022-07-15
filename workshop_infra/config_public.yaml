@@ -1,0 +1,45 @@
+# https://zero-to-jupyterhub.readthedocs.io/en/latest/administrator/optimization.html#optimization
+scheduling:
+    userScheduler:
+        enabled: true
+    podPriority:
+        enabled: true
+    userPlaceholder:
+        enabled: true
+        # Specify five dummy user pods will be used as placeholders
+        replicas: 1
+    userPods:
+        nodeAffinity:
+            matchNodePurpose: require
+cull:
+    enabled: true
+    timeout: 3600
+    every: 300
+singleuser:
+    cpu:
+        limit: 4
+        guarantee: 2
+    memory:
+        limit: 16G
+        guarantee: 8G
+    image:
+        name: gcr.io/np-public-training/pytorch-workshop
+        tag: v1.0
+    defaultUrl: /lab
+    extraEnv:
+        JUPYTERHUB_SINGLEUSER_APP: jupyter_server.serverapp.ServerApp
+    lifecycleHooks:
+        postStart:
+            exec:
+                command:
+                    - sh
+                    - -c
+                    - "cp -r /tmp/workshop /home/jovyan; \npwd\n"
+
+hub:
+    config:
+        Authenticator:
+            admin_users:
+                - npatta01
+                - vishalkumar95
+                - reshamas
