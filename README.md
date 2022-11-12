@@ -10,7 +10,7 @@ Note: We **do not** need a GPU runtime
 
 ## Setup 
 
-If you came to this repo, during a workshop visit this custom [jupyter hub](http://hub.np.training) with all the dependencies already set up.
+If you came to this repo, during a workshop visit this custom [jupyter hub](http://hub2.np.training) with all the dependencies already set up.
 
 
 
