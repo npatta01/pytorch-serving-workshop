@@ -114,14 +114,17 @@ I bought a wildcard cert from Namecheap
 
 
 Download my cert and create a kubectl cert
+
 ```bash
-gsutil cp "gs://np-training-private/certs/_star.np.training/*"  
-cd workshop_infra/cert
 
-kubectl create namespace $HELM_NAMESPACE
+gsutil cp "gs://np-training-private/certs/_star.np.training/*" workshop_infra/cert
 
-kubectl create secret tls $HELM_NAMESPACE-tls --key="tls.key" --cert="tls.crt" --namespace $HELM_NAMESPACE
+
+kubectl create namespace $HELM_NAMESPACE 
+cd workshop_infra/cert  
+kubectl create secret tls $HELM_NAMESPACE-tls --key="tls.key" --cert="tls.crt" --namespace $HELM_NAMESPACE 
 cd ../../
+
 ```
 
 ## Step 4: Helm setup
@@ -223,6 +226,11 @@ add the external ip to dns
 ```bash
 
 helm delete $HELM_NAMESPACE --namespace $HELM_NAMESPACE 
+kubectl delete namespace $HELM_NAMESPACE 
+
+helm delete $HELM_NAMESPACE-public --namespace $HELM_NAMESPACE-public
+kubectl delete namespace $HELM_NAMESPACE-public
+
 
 gcloud container clusters  delete $CLUSTER_NAME  --region $REGION   --project $GCP_PROJECT
 
