@@ -1,20 +1,20 @@
-# Readme
+# PyTorch Serving Workshop
 
 
 ## Overview
 
 
-This repo contains notebooks for Pytorch Serving Workshop.
+This repository contains notebooks for a PyTorch model-serving workshop.
 
-Note: We **do not** need a GPU runtime
+You **do not** need a GPU runtime.
 
 ## Setup 
 
-If you came to this repo, during a workshop visit this custom [jupyter hub](http://hub2.np.training) with all the dependencies already set up.
+During the workshop, use this custom [JupyterHub](http://hub2.np.training), which has all dependencies preinstalled.
 
 
 
-Otherwise, consider using [![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/npatta01/pytorch-serving-workshop/main)
+Outside the workshop, use [![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/npatta01/pytorch-serving-workshop/main).
 
 
 
@@ -24,24 +24,24 @@ There are five notebooks.
 
 a. `00_prepare_dataset.ipynb`
 
-Notebook that prepares the e-comeerce dataset and saves it.
+Prepares and saves the e-commerce dataset.
 
 b. `01_train.ipynb`
 
-Trains a DistilBert model
+Trains a DistilBERT model.
 
 c. `02_inference_review.ipynb`
 
-Notebook that shows how to use the HuggingFace ecosystem. Also shows how to use the trained model from previous notebook.
+Introduces the Hugging Face ecosystem and shows how to use the trained model from the previous notebook.
 
 d. `03_optimizing_model.ipynb`
 
-Notebook that shows impact of Quantization and TorschScript
+Demonstrates the impact of quantization and TorchScript.
 
 
 e. `04_packaging.ipynb`
 
-Notebook that shows how to use TorchServe to serve models
+Shows how to package and serve models with TorchServe.
 
 
 ## Slides
@@ -63,15 +63,15 @@ Notebook that shows how to use TorchServe to serve models
 
 ## Libraries
 
-This repro uses HuggingFace transformers and dataset pacakge. 
+This repository uses the Hugging Face Transformers and Datasets packages.
 
 The dataset used is [Amazon Berkeley Objects (ABO) Dataset](https://amazon-berkeley-objects.s3.amazonaws.com/index.html) created by Amazon and UC Berkeley.
-For more reference, refer to this [paper](https://arxiv.org/abs/2110.06199)
+For more information, see the accompanying [paper](https://arxiv.org/abs/2110.06199).
 
 
 ## Contact
 
-For help or feedback, please reach out to :
+For help or feedback, please reach out to:
 
 - [Nidhin Pattaniyil](https://www.linkedin.com/in/nidhinpattaniyil/)   
 - [Adway Dhillon](https://www.linkedin.com/in/adwaydhillon/)    
